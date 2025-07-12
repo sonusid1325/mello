@@ -66,13 +66,22 @@ fun PostItem(post: Post) {
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop,
                         loading = {
-                            CircularProgressIndicator(
-                                modifier = Modifier.then(Modifier.size(40.dp)), // use then()
-                                strokeWidth = 4.dp
-                            )
+                            Box(Modifier.fillMaxSize()) {
+                                LottieLoader(
+                                    modifier = Modifier
+                                        .size(60.dp)
+                                        .align(Alignment.Center)
+                                )
+                            }
                         },
                         error = {
-                            Icon(Icons.Default.Warning, contentDescription = "Error", Modifier.align(Alignment.Center))
+                            Box(Modifier.fillMaxSize()) {
+                                LottieLoader(
+                                    modifier = Modifier
+                                        .size(60.dp)
+                                        .align(Alignment.Center)
+                                )
+                            }
                         }
                     )
                 }
