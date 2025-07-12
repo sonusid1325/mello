@@ -25,9 +25,9 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Mello 🐣", style = MaterialTheme.typography.titleLarge) }
+                title = { Text("Mello 🐣", style = MaterialTheme.typography.titleLarge) },
             )
-        }
+        },
     ) { padding ->
         LazyColumn(
             modifier = Modifier
@@ -43,8 +43,9 @@ fun HomeScreen(
     }
 }
 
-@Preview(showBackground = true)
+
 @Preview(name = "Dark Mode", uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Preview(name = "Light Mode", showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
     MelloTheme {
@@ -58,8 +59,34 @@ fun PreviewHomeScreen() {
 @Composable
 fun PreviewHomeScreenContent() {
     val mockPosts = listOf(
-        Post(id = "1", username = "ソヌ", content = "Yo I'm building Mello with Jetpack Compose ✨", timestamp = System.currentTimeMillis()),
-        Post(id = "2", username = "hydra_dev", content = "Just dropped a Bun shell into a CTF room 💀", timestamp = System.currentTimeMillis())
+        Post(
+            id = "1",
+            username = "ソヌ",
+            content = """
+                Building **Mello** with Jetpack Compose 😍
+
+                ```kotlin
+                @Composable
+                fun HelloMello() {
+                    Text("Hello from ソヌ ✨")
+                }
+                ```
+            """.trimIndent(),
+            timestamp = System.currentTimeMillis(),
+            imageUrl = "https://placekitten.com/400/200"
+        ),
+        Post(
+            id = "2",
+            username = "hydra_dev",
+            content = """
+                Dropped a shell in Bun 🐢
+
+                ```bash
+                bun run hydra-os.ts
+                ```
+            """.trimIndent(),
+            timestamp = System.currentTimeMillis()
+        )
     )
 
     Scaffold(

@@ -71,6 +71,11 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
+    // Makrdown for compose
+    implementation(libs.compose.markdown)
+
+    // Coil Compose
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
     // Testing
     testImplementation(libs.junit)

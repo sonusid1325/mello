@@ -1,5 +1,6 @@
 [versions]
 agp = "8.11.1"
+composeMarkdown = "0.5.7"
 firebaseBom = "33.16.0"
 kotlin = "2.0.21"
 coreKtx = "1.10.1"
@@ -16,6 +17,7 @@ firebaseFirestore = "24.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+compose-markdown = { module = "com.github.jeziellago:compose-markdown", version.ref = "composeMarkdown" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
