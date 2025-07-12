@@ -73,7 +73,7 @@ fun PreviewHomeScreenContent() {
                 ```
             """.trimIndent(),
             timestamp = System.currentTimeMillis(),
-            imageUrl = "https://spaidy.vercel.app/avatars/premium/tea.jpg"
+            imageUrl = "https://spaidy.vercel.app/avatars/premium/spaidy.jpg"
         ),
         Post(
             id = "2",

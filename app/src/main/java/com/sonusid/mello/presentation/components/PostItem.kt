@@ -1,20 +1,23 @@
 package com.sonusid.mello.presentation.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import com.sonusid.mello.domain.models.Post
 import dev.jeziellago.compose.markdowntext.MarkdownText
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 @Composable
 fun PostItem(post: Post) {
@@ -52,15 +55,29 @@ fun PostItem(post: Post) {
 
             post.imageUrl?.let { url ->
                 Spacer(Modifier.height(8.dp))
-                AsyncImage(
-                    model = url,
-                    contentDescription = "Post Image",
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp),
-                    contentScale = ContentScale.Crop
-                )
+                        .height(200.dp)
+                ) {
+                    SubcomposeAsyncImage(
+                        model = url,
+                        contentDescription = "Post Image",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop,
+                        loading = {
+                            CircularProgressIndicator(
+                                modifier = Modifier.then(Modifier.size(40.dp)), // use then()
+                                strokeWidth = 4.dp
+                            )
+                        },
+                        error = {
+                            Icon(Icons.Default.Warning, contentDescription = "Error", Modifier.align(Alignment.Center))
+                        }
+                    )
+                }
             }
+
 
             Spacer(Modifier.height(8.dp))
 
