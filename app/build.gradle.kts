@@ -2,10 +2,12 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.hilt)                        // 👈 Make sure this alias exists in your libs.versions.toml
-    id("com.google.gms.google-services")            // ✅ Firebase
-    kotlin("kapt")                                   // Required for Hilt
+    alias(libs.plugins.google.services)   // ✅ Google Services via alias
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
+
+
 
 android {
     namespace = "com.sonusid.mello"
@@ -45,7 +47,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
+        kotlinCompilerExtensionVersion = "1.4.8"
     }
 }
 
@@ -69,8 +71,17 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+//    kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // Makrdown for compose
+    implementation(libs.compose.markdown)
+
+    // Coil Compose
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     // Testing
     testImplementation(libs.junit)
@@ -80,4 +91,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Lottie animations
+    implementation(libs.lottie.compose)
+
 }
