@@ -75,7 +75,8 @@ dependencies {
     implementation(libs.compose.markdown)
 
     // Coil Compose
-    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     // Testing
     testImplementation(libs.junit)

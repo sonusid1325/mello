@@ -5,8 +5,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.sonusid.mello.domain.models.Post
 import dev.jeziellago.compose.markdowntext.MarkdownText
@@ -21,33 +24,53 @@ fun PostItem(post: Post) {
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(post.username, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.height(4.dp))
+            Text(post.username,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold)
+
+            Spacer(Modifier.height(4.dp))
+
             MarkdownText(
                 markdown = post.content,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                // Regular text style
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.onSurface,
+                    lineHeight = 20.sp
+                ),
+                // Syntax highlight block background & border
+                syntaxHighlightColor = MaterialTheme.colorScheme.surfaceVariant,
+                syntaxHighlightTextColor = MaterialTheme.colorScheme.primary,
+                // Color for the dashed line under headings
+                headingBreakColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                // Set link colors
+                linkColor = MaterialTheme.colorScheme.primary,
+                enableUnderlineForLink = true, // underline links
+                truncateOnTextOverflow = false,
+                isTextSelectable = true
             )
 
-            post.imageUrl?.let { imageUrl ->
-                Spacer(modifier = Modifier.height(8.dp))
+            post.imageUrl?.let { url ->
+                Spacer(Modifier.height(8.dp))
                 AsyncImage(
-                    model = imageUrl,
+                    model = url,
                     contentDescription = "Post Image",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp)
+                        .height(200.dp),
+                    contentScale = ContentScale.Crop
                 )
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                formatDate(post.timestamp),
+            Spacer(Modifier.height(8.dp))
+
+            Text(formatDate(post.timestamp),
                 style = MaterialTheme.typography.bodySmall,
-                color = Color.Gray
-            )
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
         }
     }
 }
+
 
 fun formatDate(timestamp: Long): String {
     val sdf = SimpleDateFormat("dd MMM, hh:mm a", Locale.getDefault())
