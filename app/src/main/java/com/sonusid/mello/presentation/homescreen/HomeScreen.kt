@@ -4,6 +4,8 @@ package com.sonusid.mello.presentation.homescreen
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -28,6 +30,15 @@ fun HomeScreen(
                 title = { Text("Mello 🐣", style = MaterialTheme.typography.titleLarge) },
             )
         },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { /* TODO: Open Create Post Screen */ },
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ) {
+                Text("+") // or use an icon like Icons.Default.Add
+            }
+        }
     ) { padding ->
         LazyColumn(
             modifier = Modifier
@@ -77,6 +88,15 @@ fun PreviewHomeScreenContent() {
         ),
         Post(
             id = "2",
+            username = "ソヌ",
+            content = """
+                > So you know that you can post like a pro dev. using markdown in Mello.
+                ```
+            """.trimIndent(),
+            timestamp = System.currentTimeMillis()
+        ),
+        Post(
+            id = "3",
             username = "hydra_dev",
             content = """
                 Dropped a shell in Bun 🐢
@@ -94,6 +114,15 @@ fun PreviewHomeScreenContent() {
             TopAppBar(
                 title = { Text("Mello 🐣", style = MaterialTheme.typography.titleLarge) }
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { /* TODO: Open Create Post Screen */ },
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ) {
+                Icon(Icons.Default.Add, contentDescription = "Create Post") // or use an icon like Icons.Default.Add
+            }
         }
     ) { padding ->
         LazyColumn(
