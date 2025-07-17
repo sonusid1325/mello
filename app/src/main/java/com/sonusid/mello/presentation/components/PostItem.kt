@@ -19,12 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import com.sonusid.mello.domain.models.Post
-import dev.jeziellago.compose.markdowntext.MarkdownText
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -44,25 +44,27 @@ fun PostItem(post: Post) {
 
             Spacer(Modifier.height(20.dp))
 
-            MarkdownText(
-                markdown = post.content,
-                modifier = Modifier.fillMaxWidth(),
-                // Regular text style
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    color = MaterialTheme.colorScheme.onSurface,
-                    lineHeight = 20.sp
-                ),
-                // Syntax highlight block background & border
-                syntaxHighlightColor = MaterialTheme.colorScheme.surfaceVariant,
-                syntaxHighlightTextColor = MaterialTheme.colorScheme.primary,
-                // Color for the dashed line under headings
-                headingBreakColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                // Set link colors
-                linkColor = MaterialTheme.colorScheme.primary,
-                enableUnderlineForLink = true, // underline links
-                truncateOnTextOverflow = false,
-                isTextSelectable = true
-            )
+            Text(post.content,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface)
+
+            post.codeSnippet?.let { code ->
+                Text(
+                    text = code,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .padding(12.dp),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontFamily = FontFamily.Monospace,
+                        color = MaterialTheme.colorScheme.primary,
+                        lineHeight = 20.sp
+                    )
+                )
+            }
+
+
+
 
             post.imageUrl?.let { url ->
                 Spacer(Modifier.height(8.dp))
