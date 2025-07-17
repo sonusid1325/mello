@@ -127,7 +127,8 @@ fun PreviewHomeScreenContent() {
         floatingActionButton = {
             ExpandableFab(
                 onCreatePost = {},
-                onInbox = {}
+                onInbox = {},
+                onSearch = {}
             )
         }
     ) { padding ->

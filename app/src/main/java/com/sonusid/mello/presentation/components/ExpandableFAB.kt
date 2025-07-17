@@ -16,9 +16,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Explore
 import androidx.compose.material.icons.rounded.Navigation
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.VideoChat
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -36,7 +39,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ExpandableFab(
     onCreatePost: () -> Unit,
-    onInbox: () -> Unit
+    onInbox: () -> Unit,
+    onSearch: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -80,6 +84,30 @@ fun ExpandableFab(
                 }
             }
 
+            // Search FAB
+            AnimatedVisibility(
+                visible = expanded,
+                enter = fadeIn(tween(150)) + slideInVertically(
+                    initialOffsetY = { it / 2 },
+                    animationSpec = tween(150)
+                ),
+                exit = fadeOut(tween(150)) + slideOutVertically(
+                    targetOffsetY = { it / 2 },
+                    animationSpec = tween(150)
+                )
+            ) {
+                SmallFloatingActionButton(
+                    onClick = {
+                        expanded = false
+                        onSearch()
+                    },
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                ) {
+                    Icon(Icons.Rounded.Search, contentDescription = "Inbox")
+                }
+            }
+
             // Create Post FAB
             AnimatedVisibility(
                 visible = expanded,
@@ -99,7 +127,7 @@ fun ExpandableFab(
                     containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                 ) {
-                    Icon(Icons.Rounded.Email, contentDescription = "Create Post")
+                    Icon(Icons.Rounded.Edit, contentDescription = "Create Post")
                 }
             }
 
