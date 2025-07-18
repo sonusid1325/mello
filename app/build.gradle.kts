@@ -2,21 +2,18 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.google.services)   // ✅ Google Services via alias
+    alias(libs.plugins.google.services)
     id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
-    id("kotlin-kapt")
-
+    id("kotlin-kapt") // Required for Hilt's Kapt
 }
 
 hilt {
     enableAggregatingTask = false
 }
 
-
 android {
     namespace = "com.sonusid.mello"
-    compileSdk = 36
+    compileSdk = 36 // Android 14
 
     defaultConfig {
         applicationId = "com.sonusid.mello"
@@ -53,7 +50,7 @@ android {
 
     @Suppress("UnstableApiUsage")
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.8"
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
 }
 
@@ -61,9 +58,10 @@ dependencies {
     // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    // activity-compose: Used for ActivityResultLauncher, e.g., PickVisualMedia
     implementation(libs.androidx.activity.compose)
 
-    // Compose BOM
+    // Compose BOM (Platform) - This should dictate many other Compose library versions
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -71,24 +69,24 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
 
-    // Firebase (via BoM)
+    // Firebase (via BoM) - Good practice
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
 
     // Hilt
-    implementation(libs.hilt.android)
-    implementation(libs.hilt.navigation.compose)
-    implementation(libs.hilt.android)
+    implementation(libs.hilt.android) // Keep only one instance
+    implementation(libs.hilt.navigation.compose) // For Compose navigation integration with Hilt
+    // Removed the duplicate implementation(libs.hilt.android)
 
-    kapt(libs.hilt.compiler)
+    kapt(libs.hilt.compiler) // For Hilt annotation processing
 
-    // Makrdown for compose
+    // Markdown for compose
     implementation(libs.compose.markdown)
 
-    // Coil Compose
+    // Coil Compose (for image loading)
     implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.network.okhttp) // If you need OkHttp integration for Coil
 
     // Testing
     testImplementation(libs.junit)
@@ -99,8 +97,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     // Lottie animations
     implementation(libs.lottie.compose)
-
 }
