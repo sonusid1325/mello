@@ -1,14 +1,14 @@
 package com.sonusid.mello.data.posts
 
 import com.sonusid.mello.domain.models.Post
-import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-class PostRepositoryImpl : PostRepository {
+class PostRepositoryImpl @Inject constructor() : PostRepository {
     override suspend fun getAllPosts(): List<Post> {
-        delay(1000) // simulate network
+        // Replace this with real data fetching (Firebase, API, etc.)
         return listOf(
-            Post(id = "1", username = "ソヌ", content = "Building Mello with Jetpack Compose 💖"),
-            Post(id = "2", username = "hydra_dev", content = "Working on my own shell using Bun 🐢")
+            Post(id = "1", username = "ソヌ", content = "Hello Mello!"),
+            Post(id = "2", username = "Bunny", content = "This is lit 🔥")
         )
     }
 }

@@ -27,10 +27,48 @@ import com.sonusid.mello.presentation.components.ExpandableFab
 import com.sonusid.mello.presentation.components.PostItem
 import com.sonusid.mello.ui.theme.MelloTheme
 
+val mockPosts = listOf(
+    Post(
+        id = "1",
+        username = "ソヌ",
+        content = """
+                Building Mello with Jetpack Compose 😍
+            """.trimIndent(),
+        codeSnippet = """                
+                fun main() {
+                    println("Hello, World!")
+                }
+            """.trimIndent(),
+        timestamp = System.currentTimeMillis(),
+        imageUrl = "https://spaidy.vercel.app/avatars/premium/spaidy.jpg"
+    ),
+    Post(
+        id = "2",
+        username = "ソヌ",
+        content = """
+                Building Mello with Jetpack Compose 😍
+            """.trimIndent(),
+        codeSnippet = """
+                @Composable
+                fun Greeting(name: String) {
+                    Text(text = "Hello Compose!")
+                }
+            """.trimIndent(),
+        timestamp = System.currentTimeMillis()
+    ),
+    Post(
+        id = "3",
+        username = "hydra_dev",
+        content = "Building Mello!!!".trimIndent(),
+        timestamp = System.currentTimeMillis()
+    )
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    viewModel: FeedViewModel = hiltViewModel()
+    viewModel: FeedViewModel = hiltViewModel(),
+    onCreatePostClick: () -> Unit = {}
 ) {
     val feed by viewModel.feed.collectAsState()
 
@@ -41,13 +79,11 @@ fun HomeScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /* TODO: Open Create Post Screen */ },
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
-            ) {
-                Text("+") // or use an icon like Icons.Default.Add
-            }
+            ExpandableFab(
+                onCreatePost = onCreatePostClick,
+                onInbox = {},
+                onSearch = {}
+            )
         }
     ) { padding ->
         LazyColumn(
@@ -57,7 +93,7 @@ fun HomeScreen(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(feed) { post ->
+            items(mockPosts) { post ->
                 PostItem(post = post)
             }
         }
@@ -78,42 +114,7 @@ fun PreviewHomeScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PreviewHomeScreenContent() {
-    val mockPosts = listOf(
-        Post(
-            id = "1",
-            username = "ソヌ",
-            content = """
-                Building Mello with Jetpack Compose 😍
-            """.trimIndent(),
-            codeSnippet = """                
-                fun main() {
-                    println("Hello, World!")
-                }
-            """.trimIndent(),
-            timestamp = System.currentTimeMillis(),
-            imageUrl = "https://spaidy.vercel.app/avatars/premium/spaidy.jpg"
-        ),
-        Post(
-            id = "2",
-            username = "ソヌ",
-            content = """
-                Building Mello with Jetpack Compose 😍
-            """.trimIndent(),
-            codeSnippet = """
-                @Composable
-                fun Greeting(name: String) {
-                    Text(text = "Hello Compose!")
-                }
-            """.trimIndent(),
-            timestamp = System.currentTimeMillis()
-        ),
-        Post(
-            id = "3",
-            username = "hydra_dev",
-            content = "Building Mello!!!".trimIndent(),
-            timestamp = System.currentTimeMillis()
-        )
-    )
+
 
     Scaffold(
         topBar = {

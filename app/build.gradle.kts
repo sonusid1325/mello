@@ -5,8 +5,13 @@ plugins {
     alias(libs.plugins.google.services)   // ✅ Google Services via alias
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("kotlin-kapt")
+
 }
 
+hilt {
+    enableAggregatingTask = false
+}
 
 
 android {
@@ -73,10 +78,10 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
-//    kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+
+    kapt(libs.hilt.compiler)
 
     // Makrdown for compose
     implementation(libs.compose.markdown)
