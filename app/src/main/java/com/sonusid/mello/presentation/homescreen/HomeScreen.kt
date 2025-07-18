@@ -28,9 +28,9 @@ import com.sonusid.mello.domain.models.Post
 import com.sonusid.mello.presentation.components.ExpandableFab
 import com.sonusid.mello.presentation.components.PostItem
 import com.sonusid.mello.ui.theme.MelloTheme
-import androidx.compose.runtime.* // Import for remember and mutableStateOf
-import androidx.compose.ui.window.Dialog // Import for Dialog
-import com.sonusid.mello.presentation.createpost.CreatePostCard // Import the renamed composable
+import androidx.compose.runtime.*
+import androidx.compose.ui.window.Dialog
+import com.sonusid.mello.presentation.createpost.CreatePostCard
 
 val mockPosts = listOf(
     Post(
@@ -73,10 +73,10 @@ val mockPosts = listOf(
 @Composable
 fun HomeScreen(
     viewModel: FeedViewModel = hiltViewModel(),
-    onCreatePostClick: () -> Unit = {} // This callback will now show the dialog
+    onCreatePostClick: () -> Unit = {}
 ) {
     val feed by viewModel.feed.collectAsState()
-    var showCreatePostDialog by remember { mutableStateOf(false) } // State to control dialog visibility
+    var showCreatePostDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -86,7 +86,7 @@ fun HomeScreen(
         },
         floatingActionButton = {
             ExpandableFab(
-                onCreatePost = { showCreatePostDialog = true }, // Show dialog on FAB click
+                onCreatePost = { showCreatePostDialog = true },
                 onInbox = {},
                 onSearch = {}
             )
@@ -106,7 +106,7 @@ fun HomeScreen(
 
         // Show the CreatePostCard as a Dialog
         if (showCreatePostDialog) {
-            Dialog(onDismissRequest = { showCreatePostDialog = false }) { // Dismiss when clicking outside
+            Dialog(onDismissRequest = { /* Dialog is locked, only dismiss via buttons */ }) { // <--- CHANGED HERE
                 CreatePostCard(
                     onPostCreated = { post ->
                         // Handle the created post here (e.g., add to feed ViewModel)
@@ -114,7 +114,7 @@ fun HomeScreen(
                         // viewModel.addPost(post) // You would uncomment and implement this in FeedViewModel
                         showCreatePostDialog = false // Dismiss dialog after creation
                     },
-                    onDismiss = { showCreatePostDialog = false } // Dismiss dialog on Cancel or after Post
+                    onDismiss = { showCreatePostDialog = false } // Dismiss dialog on Cancel
                 )
             }
         }
@@ -135,7 +135,7 @@ fun PreviewHomeScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PreviewHomeScreenContent() {
-    var showCreatePostDialog by remember { mutableStateOf(false) } // Also for preview
+    var showCreatePostDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -164,7 +164,7 @@ fun PreviewHomeScreenContent() {
         }
 
         if (showCreatePostDialog) {
-            Dialog(onDismissRequest = { showCreatePostDialog = false }) {
+            Dialog(onDismissRequest = { /* Dialog is locked in preview too */ }) { // <--- CHANGED HERE
                 CreatePostCard(
                     onPostCreated = { /* Preview doesn't add posts */ },
                     onDismiss = { showCreatePostDialog = false }
