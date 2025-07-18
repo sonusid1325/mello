@@ -1,6 +1,6 @@
 pluginManagement {
     plugins {
-        id("com.google.devtools.ksp") version "2.0.21-1.0.28"
+        id("com.google.devtools.ksp") version "2.2.0-2.0.2"
     }
     repositories {
         maven { url = uri("https://jitpack.io") }
