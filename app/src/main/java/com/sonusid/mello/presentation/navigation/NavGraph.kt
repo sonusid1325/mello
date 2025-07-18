@@ -1,15 +1,17 @@
+// In file: app/src/main/java/com/sonusid/mello/presentation/navigation/MelloNavGraph.kt
+
 package com.sonusid.mello.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.sonusid.mello.presentation.createpost.CreatePostScreen
-import com.sonusid.mello.presentation.homescreen.HomeScreen
+import com.sonusid.mello.presentation.homescreen.HomeScreen // Import HomeScreen
 
 object Routes {
     const val HOME = "home"
-    const val CREATE_POST = "create_post"
+    // No longer need CREATE_POST as a separate route
+    // const val CREATE_POST = "create_post"
 }
 
 @Composable
@@ -18,14 +20,10 @@ fun MelloNavGraph(navController: NavHostController) {
         composable(Routes.HOME) {
             HomeScreen(
                 onCreatePostClick = {
-                    navController.navigate(Routes.CREATE_POST)
-                }
-            )
-        }
-        composable(Routes.CREATE_POST) {
-            CreatePostScreen(
-                onPostCreated = {
-                    navController.popBackStack() // Navigate back to Home
+                    // This now triggers the dialog in HomeScreen, no navigation needed
+                    // You might remove this onCreatePostClick if the FAB directly controls the dialog state
+                    // or keep it if HomeScreen is also a destination for some other external event.
+                    // For now, it's redundant as the FAB directly updates the dialog state.
                 }
             )
         }
