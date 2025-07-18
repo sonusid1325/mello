@@ -13,15 +13,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Email
-import androidx.compose.material.icons.rounded.Explore
 import androidx.compose.material.icons.rounded.Navigation
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.VideoChat
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -35,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
+
 
 @Composable
 fun ExpandableFab(
@@ -104,7 +100,7 @@ fun ExpandableFab(
                     containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                 ) {
-                    Icon(Icons.Rounded.Search, contentDescription = "Inbox")
+                    Icon(Icons.Rounded.Search , contentDescription = "Inbox")
                 }
             }
 
