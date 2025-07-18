@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -61,7 +61,7 @@ val mockPosts = listOf(
                 }
             """.trimIndent(),
         timestamp = System.currentTimeMillis(),
-        imageUrl = "https://spaidy.vercel.app/avatars/premium/spaidy.jpg"
+        imageUrl = "https://spaidy.vercel.app/avatars/premium/sonusid.jpg"
     ),
     Post(
         id = "2",
@@ -79,10 +79,16 @@ val mockPosts = listOf(
     ),
     Post(
         id = "3",
-        username = "hydra_dev",
+        username = "_tea.chaii",
         content = "Building Mello!!!".trimIndent(),
         timestamp = System.currentTimeMillis()
-    )
+    ),
+    Post(
+    id = "3",
+    username = "_tea.chaii",
+    content = "Building Mello!!!".trimIndent(),
+    timestamp = System.currentTimeMillis()
+)
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -129,27 +135,29 @@ fun HomeScreen(
             Surface(
                 modifier = Modifier
                     .align(Alignment.BottomStart)
-                    .padding(bottom = 28.dp, start = 20.dp)
-                    .fillMaxWidth(0.67f)
+                    // --- SYNCHRONIZED: Padding values match HomeScreen ---
+                    .padding(bottom = 50.dp, start = 40.dp)
+                    // --- SYNCHRONIZED: fillMaxWidth value matches HomeScreen ---
+                    .fillMaxWidth(0.70f)
                     .clip(RoundedCornerShape(percent = 50)),
                 color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
                 shadowElevation = 8.dp
             ) {
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth() // Fills the 67% width of its parent Surface
-                        .padding(horizontal = 16.dp, vertical = 8.dp), // Inner padding for icons
-                    horizontalArrangement = Arrangement.SpaceAround, // Distribute icons evenly
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(onClick = { println("Home Clicked") }) {
+                    IconButton(onClick = { println("Home Clicked (Preview)") }) {
                         Icon(painterResource(R.drawable.message_circle), contentDescription = "Home")
                     }
-                    IconButton(onClick = { println("Discover Clicked") }) {
+                    IconButton(onClick = { println("Discover Clicked (Preview)") }) {
                         Icon(Icons.Filled.Search, contentDescription = "Discover")
                     }
-                    IconButton(onClick = { println("Profile Clicked") }) {
-                        Icon(painterResource(R.drawable.user_round_pen), contentDescription = "Profile")
+                    IconButton(onClick = { println("Profile Clicked (Preview)") }) {
+                        Icon(Icons.Filled.Person, contentDescription = "Profile")
                     }
                 }
             }
@@ -169,7 +177,10 @@ fun HomeScreen(
     }
 }
 
-@Preview(name = "Dark Mode", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Preview(name = "Dark Mode", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true,
+    device = "id:pixel_9_pro", showSystemUi = true,
+    wallpaper = Wallpapers.RED_DOMINATED_EXAMPLE
+)
 //@Preview(name = "Light Mode", showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
@@ -222,9 +233,9 @@ fun PreviewHomeScreenContent() {
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     // --- SYNCHRONIZED: Padding values match HomeScreen ---
-                    .padding(bottom = 16.dp, start = 16.dp)
+                    .padding(bottom = 50.dp, start = 20.dp)
                     // --- SYNCHRONIZED: fillMaxWidth value matches HomeScreen ---
-                    .fillMaxWidth(0.67f)
+                    .fillMaxWidth(0.70f)
                     .clip(RoundedCornerShape(percent = 50)),
                 color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
                 shadowElevation = 8.dp
@@ -237,7 +248,7 @@ fun PreviewHomeScreenContent() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(onClick = { println("Home Clicked (Preview)") }) {
-                        Icon(Icons.Filled.Home, contentDescription = "Home")
+                        Icon(painterResource(R.drawable.message_circle), contentDescription = "Home")
                     }
                     IconButton(onClick = { println("Discover Clicked (Preview)") }) {
                         Icon(Icons.Filled.Search, contentDescription = "Discover")
