@@ -29,7 +29,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.sonusid.mello.R
 
 
 @Composable
@@ -56,31 +58,7 @@ fun ExpandableFab(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.End
         ) {
-            // Inbox FAB
-            AnimatedVisibility(
-                visible = expanded,
-                enter = fadeIn(tween(150)) + slideInVertically(
-                    initialOffsetY = { it / 2 },
-                    animationSpec = tween(150)
-                ),
-                exit = fadeOut(tween(150)) + slideOutVertically(
-                    targetOffsetY = { it / 2 },
-                    animationSpec = tween(150)
-                )
-            ) {
-                SmallFloatingActionButton(
-                    onClick = {
-                        expanded = false
-                        onInbox()
-                    },
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                ) {
-                    Icon(Icons.Rounded.Email, contentDescription = "Inbox")
-                }
-            }
-
-            // Search FAB
+            // Edit FAB
             AnimatedVisibility(
                 visible = expanded,
                 enter = fadeIn(tween(150)) + slideInVertically(
@@ -100,7 +78,7 @@ fun ExpandableFab(
                     containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                 ) {
-                    Icon(Icons.Rounded.Search , contentDescription = "Inbox")
+                    Icon(painterResource(R.drawable.user_round_pen), contentDescription = "Inbox")
                 }
             }
 

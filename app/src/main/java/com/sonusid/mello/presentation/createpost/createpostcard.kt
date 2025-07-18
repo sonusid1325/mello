@@ -1,5 +1,3 @@
-// In file: app/src/main/java/com/sonusid/mello/presentation/createpost/CreatePostCard.kt
-
 package com.sonusid.mello.presentation.createpost
 
 import android.net.Uri
@@ -13,7 +11,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddAPhoto
 import androidx.compose.material.icons.filled.Code
-import androidx.compose.material3.*
+import androidx.compose.material3.* // Ensure ElevatedButton is imported
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
@@ -63,22 +61,22 @@ fun CreatePostCard(
 
     Card(
         modifier = Modifier
-            .fillMaxWidth() // <--- CHANGED: Now takes full width
-            .fillMaxHeight(0.5f), // <--- CHANGED: Now takes exactly 50% of screen height
+            .fillMaxWidth()
+            .fillMaxHeight(0.5f),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize() // Column inside card fills card
-                .padding(16.dp) // Internal padding for card content
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
             // --- Scrollable Content Area ---
             Column(
                 modifier = Modifier
-                    .weight(1f) // Takes up remaining vertical space
-                    .verticalScroll(rememberScrollState()), // Make this part scrollable
-                verticalArrangement = Arrangement.spacedBy(12.dp) // Spacing for items within scrollable area
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 // Main content/caption input
                 OutlinedTextField(
@@ -91,7 +89,6 @@ fun CreatePostCard(
                     label = { Text("What's on your mind?") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = false,
-                    // maxLines = 10, // Removed as verticalScroll handles content exceeding bounds
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color.Transparent,
                         unfocusedBorderColor = Color.Transparent,
@@ -116,8 +113,6 @@ fun CreatePostCard(
                     }
                 )
 
-                // No Spacer here, as verticalArrangement handles it
-
                 // Optional Code Snippet Input (Stylized BasicTextField)
                 if (showCodeInput) {
                     Column {
@@ -132,7 +127,7 @@ fun CreatePostCard(
                             cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .heightIn(min = 80.dp, max = 200.dp) // Maintain min/max height for code input
+                                .heightIn(min = 80.dp, max = 200.dp)
                                 .clip(RoundedCornerShape(8.dp))
                                 .background(MaterialTheme.colorScheme.inverseOnSurface)
                                 .padding(12.dp),
@@ -151,23 +146,22 @@ fun CreatePostCard(
                                 innerTextField()
                             }
                         )
-                        Spacer(Modifier.height(8.dp)) // Internal spacer within code section
+                        Spacer(Modifier.height(8.dp))
                         if (codeSnippet.text.isNotBlank()) {
-                            Button(
+                            // --- CHANGED: Button to ElevatedButton ---
+                            ElevatedButton(
                                 onClick = {
                                     codeSnippet = TextFieldValue("")
                                     showCodeInput = false
                                 },
                                 modifier = Modifier.fillMaxWidth(),
-                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                                colors = ButtonDefaults.elevatedButtonColors(containerColor = MaterialTheme.colorScheme.error) // Use elevatedButtonColors
                             ) {
                                 Text("Remove Code")
                             }
                         }
                     }
                 }
-
-                // No Spacer here, as verticalArrangement handles it
 
                 // Display selected image preview and a "Remove Image" button if an image is selected
                 if (imageUrl.isNotBlank()) {
@@ -182,13 +176,14 @@ fun CreatePostCard(
                                 .background(MaterialTheme.colorScheme.surfaceVariant)
                                 .align(Alignment.CenterHorizontally),
                         )
-                        Spacer(Modifier.height(8.dp)) // Internal spacer within image section
-                        Button(
+                        Spacer(Modifier.height(8.dp))
+                        // --- CHANGED: Button to ElevatedButton ---
+                        ElevatedButton(
                             onClick = {
                                 imageUrl = ""
                             },
                             modifier = Modifier.fillMaxWidth(),
-                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                            colors = ButtonDefaults.elevatedButtonColors(containerColor = MaterialTheme.colorScheme.error) // Use elevatedButtonColors
                         ) {
                             Text("Remove Image")
                         }
@@ -197,7 +192,7 @@ fun CreatePostCard(
             } // End of scrollable Column
 
             // --- Fixed Action Buttons Area (not scrollable) ---
-            Spacer(Modifier.height(16.dp)) // Spacer before action chips
+            Spacer(Modifier.height(16.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -228,7 +223,7 @@ fun CreatePostCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                OutlinedButton(
+                ElevatedButton(
                     onClick = {
                         onDismiss()
                     },
@@ -236,7 +231,8 @@ fun CreatePostCard(
                 ) {
                     Text("Cancel")
                 }
-                Button(
+                // --- CHANGED: Button to ElevatedButton ---
+                ElevatedButton(
                     onClick = {
                         val newPost = Post(
                             id = "dummyId_${System.currentTimeMillis()}",
@@ -259,7 +255,6 @@ fun CreatePostCard(
     }
 }
 
-// ActionChip and Preview functions remain the same
 @Composable
 fun ActionChip(text: String, icon: ImageVector, onClick: () -> Unit) {
     AssistChip(

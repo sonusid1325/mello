@@ -19,12 +19,6 @@ fun MelloNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Routes.HOME) {
         composable(Routes.HOME) {
             HomeScreen(
-                onCreatePostClick = {
-                    // This now triggers the dialog in HomeScreen, no navigation needed
-                    // You might remove this onCreatePostClick if the FAB directly controls the dialog state
-                    // or keep it if HomeScreen is also a destination for some other external event.
-                    // For now, it's redundant as the FAB directly updates the dialog state.
-                }
             )
         }
     }
